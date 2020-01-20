@@ -108,7 +108,7 @@ envelope <- function(data,
             )
           pl1  <-
             ggplot(data = fdata,
-                   aes(
+                   ggplot2::aes(
                      x = X1,
                      y = value,
                      colour = as.factor(X2),
@@ -122,7 +122,7 @@ envelope <- function(data,
                       color = 'red',
                       cex = 1.25) +
             geom_polygon(data = dataBand,
-                         aes(x = X1, y = value),
+                         ggplot2::aes(x = X1, y = value),
                          color = 'grey25') +
             geom_line(data = fdata[fdata$X2 %in% Subsample, ],
                       color = 'black',

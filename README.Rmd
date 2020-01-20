@@ -11,7 +11,7 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 
 devtools::install_github("aefdz/dbFDA")
-load('simulData.Rdata')
+library(dbFDA)
 ```
 
 [![Travis-CI Build Status](https://travis-ci.org/egarpor/rp.flm.test.svg?branch=master)](https://travis-ci.org/egarpor/rp.flm.test)

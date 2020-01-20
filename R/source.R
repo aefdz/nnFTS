@@ -58,13 +58,14 @@ banddpeeling<-function(data, focal, dist, plot){
           }
           dataBand<-data.frame(X1=c(data$x, rev(data$x)), X2='NULL', value=c(high, rev(low)))
           pl1 <- ggplot2::ggplot(data=fdata, ggplot2::aes(x=X1, y=value,colour=as.factor(X2), group=as.factor(X2))) +
-            geom_line(color='grey50')+theme(legend.position="none")+
-            geom_line(data=fdata[fdata$X2 %in% Subsample,], color='black', cex=1.25)+
-            geom_line(data=fdata[fdata[,2]==focal,],color='red', cex=1.25)+
-            geom_polygon(data=dataBand, ggplot2::aes(x=X1,y=value), color='grey25')+
-            geom_line(data=fdata[fdata$X2 %in% Subsample,], color='black', cex=1)+
-            geom_line(data=fdata[fdata$X2 %in% SubsampleIter,], color='grey', cex=1)+
-            geom_line(data=fdata[fdata$X2==focal,], color='red', cex=1.2)
+            ggplot2::geom_line(color='grey50')+
+            ggplot2::theme(legend.position="none")+
+            ggplot2::geom_line(data=fdata[fdata$X2 %in% Subsample,], color='black', cex=1.25)+
+            ggplot2::geom_line(data=fdata[fdata[,2]==focal,],color='red', cex=1.25)+
+            ggplot2::geom_polygon(data=dataBand, ggplot2::aes(x=X1,y=value), color='grey25')+
+            ggplot2::geom_line(data=fdata[fdata$X2 %in% Subsample,], color='black', cex=1)+
+            ggplot2::geom_line(data=fdata[fdata$X2 %in% SubsampleIter,], color='grey', cex=1)+
+            ggplot2::geom_line(data=fdata[fdata$X2==focal,], color='red', cex=1.2)
           print(pl1)
 
           readline(prompt = "Press <Enter> to continue...")

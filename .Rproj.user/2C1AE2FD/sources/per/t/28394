@@ -5,16 +5,16 @@
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "804464728",
+    "hash" : "1808726764",
     "id" : "28394",
-    "lastKnownWriteTime" : 1579556257,
-    "last_content_update" : 1579556970331,
-    "path" : "~/dbFDA/README.Rmd",
+    "lastKnownWriteTime" : 1579558091,
+    "last_content_update" : 1579558091,
+    "path" : "~/GitHub/dbFDA/README.Rmd",
     "project_path" : "README.Rmd",
     "properties" : {
-        "cursorPosition" : "37,11",
-        "last_setup_crc32" : "458B98255e7ae892",
-        "scrollLine" : "24"
+        "cursorPosition" : "10,0",
+        "last_setup_crc32" : "",
+        "scrollLine" : "3"
     },
     "read_only" : false,
     "read_only_alternatives" : [

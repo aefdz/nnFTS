@@ -15,8 +15,8 @@ envelope <- function(data,
                          dist = "l2",
                          plot = TRUE) {
   P <-
-    data$x[data$y[, focal] != rowMaxs(data$y) &
-             data$y[, focal] != rowMins(data$y)]
+    data$x[data$y[, focal] !=  matrixStats::rowMaxs(data$y) &
+             data$y[, focal] != matrixStats::rowMins(data$y)]
 
   length_P <- length(P)
 
@@ -38,7 +38,7 @@ envelope <- function(data,
 
       if (dist == 'supremum') {
         supDist <-
-          colMaxs(abs(matrix(
+          matrixStats::colMaxs(abs(matrix(
             data$y[, I] - data$y[, focal],
             ncol = length(I),
             nrow = length(data$x)
@@ -48,7 +48,7 @@ envelope <- function(data,
 
       if (dist == 'l2') {
         supDist <-
-          colSums((data$y[, I] - data$y[, focal]) ^ 2)
+          matrixStats::colSums((data$y[, I] - data$y[, focal]) ^ 2)
         names(supDist) <- c(I)
       }
 
@@ -91,7 +91,7 @@ envelope <- function(data,
           #print(c('Remaining Sample',length(I)))
           #print(c('In this envelope',length(SubsampleIter)))
           #print(iterDepthAux)
-          fdata <- melt(data$y, id = 'x')
+          fdata <- reshape::melt(data$y, id = 'x')
           aux <-
             matrix(c(data$y[, SubsampleIter]), nrow = length(data$x))
           low <-   vector(mode = "numeric", length = length(data$x))
@@ -107,30 +107,30 @@ envelope <- function(data,
               value = c(high, rev(low))
             )
           pl1  <-
-            ggplot(data = fdata,
+            ggplot2::ggplot(data = fdata,
                    ggplot2::aes(
                      x = X1,
                      y = value,
                      colour = as.factor(X2),
                      group = as.factor(X2)
                    )) +
-            geom_line(color = 'grey50') + theme(legend.position = "none") +
-            geom_line(data = fdata[fdata$X2 %in% Subsample, ],
+            ggplot2::geom_line(color = 'grey50') + ggplot2::theme(legend.position = "none") +
+            ggplot2::geom_line(data = fdata[fdata$X2 %in% Subsample, ],
                       color = 'black',
                       cex = 1.25) +
-            geom_line(data = fdata[fdata[, 2] == focal, ],
+            ggplot2::geom_line(data = fdata[fdata[, 2] == focal, ],
                       color = 'red',
                       cex = 1.25) +
-            geom_polygon(data = dataBand,
+            ggplot2::geom_polygon(data = dataBand,
                          ggplot2::aes(x = X1, y = value),
                          color = 'grey25') +
-            geom_line(data = fdata[fdata$X2 %in% Subsample, ],
+            ggplot2::geom_line(data = fdata[fdata$X2 %in% Subsample, ],
                       color = 'black',
                       cex = 1) +
-            geom_line(data = fdata[fdata$X2 %in% SubsampleIter, ],
+            ggplot2::geom_line(data = fdata[fdata$X2 %in% SubsampleIter, ],
                       color = 'grey',
                       cex = 1) +
-            geom_line(data = fdata[fdata$X2 == focal, ],
+            ggplot2::geom_line(data = fdata[fdata$X2 == focal, ],
                       color = 'red',
                       cex = 1.2)
           print(pl1)
@@ -148,7 +148,7 @@ envelope <- function(data,
   }
   if (dist == 'supremum') {
     supDist <-
-      colMaxs(abs(matrix(
+      matrixStats::colMaxs(abs(matrix(
         data$y - data$y[, focal],
         ncol = length(I),
         nrow = length(data$x)
@@ -157,7 +157,7 @@ envelope <- function(data,
   }
   if (dist == 'l2') {
     supDist  <-
-      colSums((data$y - data$y[, focal]) ^ 2)
+      matrixStats::colSums((data$y - data$y[, focal]) ^ 2)
     names(supDist) <- colnames(data$y)
   }
 

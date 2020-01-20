@@ -209,12 +209,12 @@ plotBand<-function(data, cut, Jordered, kcurves, focal){
   #Now we compute the bag
   bag <- band(data,bagId); low<-bag[,1]; high<-bag[,2]
   dataBand<-data.frame(X1=c(data$x, rev(data$x)), X2='NULL', value=c(high, rev(low)))
-  pl1 <- ggplot(data=fdata, ggplot2::aes(x=X1, y=value,colour=as.factor(X2), group=as.factor(X2))) +
-    geom_line(color='grey50')+theme(legend.position="none")+
-    geom_polygon(data=dataBand, ggplot2::aes(x=X1,y=value), color='grey25')+
-    geom_line(data=fdata[fdata[,2]==focal,],color='red', cex=1.25,linetype = 2)+
-    geom_line(data=fdatashort[fdatashort$X2==focal,], color='red', cex=1.2)+
-    geom_vline(xintercept = fdata$X1[cut],cex=1)
+  pl1 <- ggplot2::ggplot(data=fdata, ggplot2::aes(x=X1, y=value,colour=as.factor(X2), group=as.factor(X2))) +
+    ggplot2::geom_line(color='grey50')+theme(legend.position="none")+
+    ggplot2::geom_polygon(data=dataBand, ggplot2::aes(x=X1,y=value), color='grey25')+
+    ggplot2::geom_line(data=fdata[fdata[,2]==focal,],color='red', cex=1.25,linetype = 2)+
+    ggplot2::geom_line(data=fdatashort[fdatashort$X2==focal,], color='red', cex=1.2)+
+    ggplot2::geom_vline(xintercept = fdata$X1[cut],cex=1)
 
   print(pl1)
 }

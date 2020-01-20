@@ -10,8 +10,8 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
-source('mainJCGS.R')
-load('simulData.Rdata')
+devtools::install_github("aefdz/dbFDA")
+library(dbFDA)
 ```
 
 [![Travis-CI Build Status](https://travis-ci.org/egarpor/rp.flm.test.svg?branch=master)](https://travis-ci.org/egarpor/rp.flm.test)

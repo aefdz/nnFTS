@@ -90,7 +90,6 @@ extension <- function(data, focal, tcut, dist){
   datayshort<-data$y[1:tcut,]; dataxshort<-data$x[1:tcut]
   rownames(datayshort) <- dataxshort
   dataShort<-rainbow::fds(dataxshort, datayshort, xname='x', yname='y')
-  sco <-  PCAproj(t(dataShort$y), center = median)$scores; rownames(sco) <-  colnames(dataShort$y)
 
   SubsampleAll <- banddpeeling(dataShort, focal, dist, plot = FALSE)
   Subsample<-SubsampleAll$subsample

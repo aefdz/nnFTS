@@ -113,7 +113,7 @@ extension <- function(data, focal, tcut, dist){
   orderMBDObserved<-orderByMBD(dataShort, Subsample)
   depth[1,1] <- depthPercentile(names(orderMBDObserved$x), focal)
 
-  orderMBDPredicted<-orderByMBD(extract(data, direction = "x", xorder = data$x[(tcut+1):length(data$x)]), Subsample)
+  orderMBDPredicted<-orderByMBD(ftsa::extract(data, direction = "x", xorder = data$x[(tcut+1):length(data$x)]), Subsample)
   depth[1,2] <- depthPercentile(names(orderMBDPredicted$x), focal)
 
   Jordered <- orderMBDObserved

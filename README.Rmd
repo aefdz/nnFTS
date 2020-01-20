@@ -10,7 +10,7 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
-devtools::install_github("aefdz/dbFDA")
+devtools::install_github("aefdz/dbFDA", dep = FALSE)
 library(dbFDA)
 ```
 

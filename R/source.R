@@ -11,21 +11,19 @@ banddpeeling<-function(data, focal, dist, plot){
     iterDepth<-c(0)
     while(length(I)>1){
       x <- as.character(P)
-      #Primera etapa cogemos dos
+
       candidates<-I
-      if(dist=='supremum'){supDist<-colMaxs(abs(matrix(data$y[,I]-data$y[,focal], ncol=length(I), nrow=length(data$x)))); names(supDist)<-c(I)}
-      if(dist=='l2'){supDist <- colSums((data$y[,I]-data$y[,focal])^2); names(supDist)<-c(I)}
+      if(dist=='supremum'){supDist<-matrixStats::colMaxs(abs(matrix(data$y[,I]-data$y[,focal], ncol=length(I), nrow=length(data$x)))); names(supDist)<-c(I)}
+      if(dist=='l2'){supDist <- matrixStats::colSums((data$y[,I]-data$y[,focal])^2); names(supDist)<-c(I)}
       d <- sort(supDist, decreasing = FALSE)
 
       SubsampleIter<-names(d[1])
       candidates=candidates[!candidates %in% names(d[1])]
 
       while(length(x)!=0 & 0<length(candidates)){
-        #supDist<-colMaxs(abs(matrix(data$y[,candidates]-data$y[,focal], ncol=length(candidates), nrow=length(data$x)))); names(supDist)<-c(candidates)
-        #supDist <- colSums((as.matrix(data$y[,candidates]-data$y[,focal])^2)); names(supDist) <- c(candidates)
         dAUX<-sort(d[candidates], decreasing = FALSE)
 
-        Ji<-which(abs(rowSums(sign(as.matrix(data$y[,c(SubsampleIter, names(dAUX[1]))]-data$y[,focal]))))<length(c(SubsampleIter, names(d[1]))))
+        Ji<-which(abs(matrixStats::rowSums(sign(as.matrix(data$y[,c(SubsampleIter, names(dAUX[1]))]-data$y[,focal]))))<length(c(SubsampleIter, names(d[1]))))
 
         # Envuelven algo las dos primeras?
         if(length(x)<=length(x[!x %in% names(Ji)])){ #No envuelven
@@ -75,8 +73,8 @@ banddpeeling<-function(data, focal, dist, plot){
       if(length(candidates)==0){break}
     }
   }else{Subsample=c('No Subsample')}
-  if(dist=='supremum'){supDist<-colMaxs(abs(matrix(data$y-data$y[,focal], ncol=length(I), nrow=length(data$x)))); names(supDist)<-colnames(data$y)}
-  if(dist=='l2'){supDist <- colSums((data$y-data$y[,focal])^2); names(supDist)<-colnames(data$y)}
+  if(dist=='supremum'){supDist <- matrixStats::colMaxs(abs(matrix(data$y-data$y[,focal], ncol=length(I), nrow=length(data$x)))); names(supDist)<-colnames(data$y)}
+  if(dist=='l2'){supDist <- matrixStats::colSums((data$y-data$y[,focal])^2); names(supDist)<-colnames(data$y)}
 
   if(Subsample[1]!='No Subsample'){
     auxDist <- sort(supDist, decreasing = FALSE, index.return=TRUE)

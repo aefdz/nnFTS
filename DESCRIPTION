@@ -1,0 +1,17 @@
+Package: dbFDA
+Type: Package
+Title: Depth-based prediction bands for functional data
+Version: 0.1.0
+Author: Who wrote it
+Maintainer: The package maintainer <yourself@somewhere.net>
+Description: This package provide the main algorithm to get envelopes and prediction bands.
+License: GPL (>= 2)
+Encoding: UTF-8
+LazyData: true
+Imports:
+	ftsa,
+	fds,
+	reshape,
+	ggplot2,
+	matrixStats
+RoxygenNote: 7.0.2

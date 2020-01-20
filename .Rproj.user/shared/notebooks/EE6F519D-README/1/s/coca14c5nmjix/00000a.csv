@@ -1,0 +1,6 @@
+"0","cut <- 25 # number of points observed of the partially observed function"
+"0","kcurves <- 10 # number of curves of the envelope involved in the band"
+"0",""
+"0","results <- extension(data, focal, cut, dist)"
+"0",""
+"0","pl <- plotBand(data, cut, results$Jordered, kcurves, focal)"

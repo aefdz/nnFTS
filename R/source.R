@@ -23,7 +23,7 @@ banddpeeling<-function(data, focal, dist, plot){
       while(length(x)!=0 & 0<length(candidates)){
         dAUX<-sort(d[candidates], decreasing = FALSE)
 
-        Ji<-which(abs(matrixStats::rowSums(sign(as.matrix(data$y[,c(SubsampleIter, names(dAUX[1]))]-data$y[,focal]))))<length(c(SubsampleIter, names(d[1]))))
+        Ji<-which(abs(rowSums(sign(as.matrix(data$y[,c(SubsampleIter, names(dAUX[1]))]-data$y[,focal]))))<length(c(SubsampleIter, names(d[1]))))
 
         # Envuelven algo las dos primeras?
         if(length(x)<=length(x[!x %in% names(Ji)])){ #No envuelven

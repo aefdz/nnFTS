@@ -14,7 +14,7 @@ banddpeeling<-function(data, focal, dist, plot){
 
       candidates<-I
       if(dist=='supremum'){supDist<-matrixStats::colMaxs(abs(matrix(data$y[,I]-data$y[,focal], ncol=length(I), nrow=length(data$x)))); names(supDist)<-c(I)}
-      if(dist=='l2'){supDist <- matrixStats::colSums((data$y[,I]-data$y[,focal])^2); names(supDist)<-c(I)}
+      if(dist=='l2'){supDist <- colSums((data$y[,I]-data$y[,focal])^2); names(supDist)<-c(I)}
       d <- sort(supDist, decreasing = FALSE)
 
       SubsampleIter<-names(d[1])
@@ -74,7 +74,7 @@ banddpeeling<-function(data, focal, dist, plot){
     }
   }else{Subsample=c('No Subsample')}
   if(dist=='supremum'){supDist <- matrixStats::colMaxs(abs(matrix(data$y-data$y[,focal], ncol=length(I), nrow=length(data$x)))); names(supDist)<-colnames(data$y)}
-  if(dist=='l2'){supDist <- matrixStats::colSums((data$y-data$y[,focal])^2); names(supDist)<-colnames(data$y)}
+  if(dist=='l2'){supDist <- colSums((data$y-data$y[,focal])^2); names(supDist)<-colnames(data$y)}
 
   if(Subsample[1]!='No Subsample'){
     auxDist <- sort(supDist, decreasing = FALSE, index.return=TRUE)

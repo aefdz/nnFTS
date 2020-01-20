@@ -20,7 +20,7 @@ Depth-based prediction bands for functional data
 ===========
 
 ## Enveloping without prediction or forecasting
-```{r, echo = FALSE}
+```{r, message = FALSE}
 focal <- '1'
 dist <- 'l2' # dist<-'supremum'
 plotting <- TRUE 
@@ -30,7 +30,7 @@ resultsBand #Envelope
 ```
 
 ## Curve Extension
-```{r, echo = FALSE}
+```{r, message = FALSE}
 cut <- 25 # number of points observed of the partially observed function
 kcurves <- 10 # number of curves of the envelope involved in the band
 

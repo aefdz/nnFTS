@@ -6,6 +6,14 @@ Depth-based prediction bands for functional data
 Enveloping without prediction or forecasting
 --------------------------------------------
 
+``` r
+focal <- '1'
+dist <- 'l2' # dist<-'supremum'
+plotting <- TRUE 
+
+resultsBand <- banddpeeling(data, focal, dist, plotting)
+```
+
 ![](README_files/figure-markdown_github/unnamed-chunk-1-1.png)
 
     ## Press <Enter> to continue...
@@ -22,6 +30,10 @@ Enveloping without prediction or forecasting
 
     ## Press <Enter> to continue...
 
+``` r
+resultsBand #Envelope 
+```
+
     ## $subsample
     ##  [1] "1"  "43" "29" "84" "22" "88" "28" "52" "63" "15" "41" "86" "97" "4"  "46"
     ## [16] "79" "14" "10"
@@ -29,18 +41,14 @@ Enveloping without prediction or forecasting
 Curve Extension
 ---------------
 
-    ## Registered S3 method overwritten by 'xts':
-    ##   method     from
-    ##   as.zoo.xts zoo
+``` r
+cut <- 25 # number of points observed of the partially observed function
+kcurves <- 10 # number of curves of the envelope involved in the band
 
-    ## Registered S3 method overwritten by 'quantmod':
-    ##   method            from
-    ##   as.zoo.data.frame zoo
+results <- extension(data, focal, cut, dist)
 
-    ## Registered S3 methods overwritten by 'forecast':
-    ##   method             from    
-    ##   fitted.fracdiff    fracdiff
-    ##   residuals.fracdiff fracdiff
+pl <- plotBand(data, cut, results$Jordered, kcurves, focal)
+```
 
 ![](README_files/figure-markdown_github/unnamed-chunk-2-1.png)
 

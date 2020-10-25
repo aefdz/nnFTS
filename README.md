@@ -1,6 +1,6 @@
 [![License](https://img.shields.io/badge/license-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-Depth-based prediction bands for functional data
+Depth Nearest neighbors prediction bands for functional data
 ================================================
 
 Enveloping without prediction or forecasting

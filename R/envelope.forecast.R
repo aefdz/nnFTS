@@ -29,7 +29,6 @@
 #' @importFrom rainbow fts
 #'
 #' @export
-
 envelope.forecast <- function(data, focal, h, distance, typePoint, theta = 1){
   if(anyNA(data$y[,focal])){ #DU
     tcut <- sum(!is.na(data$y[,focal]))

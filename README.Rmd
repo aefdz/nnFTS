@@ -24,20 +24,18 @@ On Projection Methods for Functional Time Series Forecasting
 data(sinedata)
 focal <- '1'
 dist <- 'l2' # dist<-'supremum'
-plotting <- TRUE 
+plot <- TRUE
 
-resultsBand <- envelope(sinedata, focal, dist, plotting)
+resultsBand <- envelope(sinedata, focal, dist, plot)
 resultsBand #Envelope 
 ```
 
 ## Curve Extension
 ```{r, message = FALSE}
-cut <- 25 # number of points observed of the partially observed function
+tcut <- 25 # number of points observed of the partially observed function
 kcurves <- 10 # number of curves of the envelope involved in the band
 
-results <- extension(sinedata, focal, cut, dist)
-
-pl <- plotBand(sinedata, cut, results$Jordered, kcurves, focal)
+pl <- plotBand(sinedata, tcut, resultsBand$Jordered, kcurves, focal)
 ```
 
 ## To explore different values of cut and kcurves (only running in Rstudio)
@@ -45,7 +43,7 @@ pl <- plotBand(sinedata, cut, results$Jordered, kcurves, focal)
 ```{r, eval = FALSE}
 manipulate(
   {
-  plotBand(sinedata, cut, results$Jordered, kcurves, focal)
+  plotBand(sinedata, tcut, results$Jordered, kcurves, focal)
   },
   kcurves = slider(min = 1, max = length(results$Jordered), step = 1, ticks = TRUE),
   cut = slider(1, 99, initial = 50, step = 1)

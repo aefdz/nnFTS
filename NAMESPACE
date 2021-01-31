@@ -3,6 +3,7 @@
 export(envelope)
 export(envelope.forecast)
 export(fknn.forecast)
+export(plotBand)
 import(ggplot2)
 import(matrixStats)
 importFrom(rainbow,fts)

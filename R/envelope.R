@@ -75,12 +75,12 @@ envelope <- function(data, focal, distance, plot){
             high[j]<-max(aux[j,])
           }
           dataBand<-data.frame(X1=c(data$x, rev(data$x)), X2='NULL', value=c(high, rev(low)))
-          pl1 <- ggplot2::ggplot(data=fdata, ggplot2::aes(x=.data$X1, y=.data$value,colour=as.factor(.data$X2), group=as.factor(.data$X2))) +
+          pl1 <- ggplot2::ggplot(data=fdata, ggplot2::aes(x=.fdata$X1, y=.fdata$value,colour=as.factor(.fdata$X2), group=as.factor(.fdata$X2))) +
             ggplot2::geom_line(color='grey50')+
             ggplot2::theme(legend.position="none")+
             ggplot2::geom_line(data=fdata[fdata$X2 %in% Subsample,], color='black', cex=1.25)+
             ggplot2::geom_line(data=fdata[fdata[,2]==focal,],color='red', cex=1.25)+
-            ggplot2::geom_polygon(data=dataBand, ggplot2::aes(x=.data$X1,y=.data$value), color='grey25')+
+            ggplot2::geom_polygon(data=dataBand, ggplot2::aes(x=.fdata$X1,y=.fdata$value), color='grey25')+
             ggplot2::geom_line(data=fdata[fdata$X2 %in% Subsample,], color='black', cex=1)+
             ggplot2::geom_line(data=fdata[fdata$X2 %in% SubsampleIter,], color='grey', cex=1)+
             ggplot2::geom_line(data=fdata[fdata$X2==focal,], color='red', cex=1.2)
@@ -184,9 +184,9 @@ plotBand <- function(data, cut, Jordered, kcurves, focal){
   #Now we compute the bag
   bag <- band(data,bagId); low<-bag[,1]; high<-bag[,2]
   dataBand<-data.frame(X1=c(data$x, rev(data$x)), X2='NULL', value=c(high, rev(low)))
-  pl1 <- ggplot2::ggplot(data=fdata, ggplot2::aes(x=.data$X1, y=.data$value,colour=as.factor(.data$X2), group=as.factor(.data$X2))) +
+  pl1 <- ggplot2::ggplot(data=fdata, ggplot2::aes(x=.fdata$X1, y=.fdata$value,colour=as.factor(.fdata$X2), group=as.factor(.fdata$X2))) +
     ggplot2::geom_line(color='grey50')+ggplot2::theme(legend.position="none")+
-    ggplot2::geom_polygon(data=dataBand, ggplot2::aes(x=.data$X1,y=.data$value), color='grey25')+
+    ggplot2::geom_polygon(data=dataBand, ggplot2::aes(x=.fdata$X1,y=.fdata$value), color='grey25')+
     ggplot2::geom_line(data=fdata[fdata[,2]==focal,],color='red', cex=1.25,linetype = 2)+
     ggplot2::geom_line(data=fdatashort[fdatashort$X2==focal,], color='red', cex=1.2)+
     ggplot2::geom_vline(xintercept = fdata$X1[cut],cex=1)

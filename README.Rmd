@@ -10,7 +10,7 @@ output:
 ```{r setup, include=FALSE, message = FALSE, warning = FALSE, fig.asp = 0.5, fig.align = 'center'}
 knitr::opts_chunk$set(echo = TRUE)
 
-#devtools::install_github("aefdz/nnFTS", dep = FALSE)
+devtools::install_github("aefdz/nnFTS", dep = FALSE)
 library("nnFTS")
 ```
 

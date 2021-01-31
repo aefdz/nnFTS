@@ -4,7 +4,7 @@
 \alias{plotBand}
 \title{Plot Bands}
 \usage{
-plotBand(data, focal, Jordered, kcurves)
+plotBand(data, focal, Jordered, kcurves, cut)
 }
 \arguments{
 \item{data}{a fts or fds object see R package rainbow or ftsa.}
@@ -12,6 +12,8 @@ plotBand(data, focal, Jordered, kcurves)
 \item{focal}{the name of the curve to envelope. In the article, the most recent curve.}
 
 \item{kcurves}{number of curves to build the band.}
+
+\item{cut}{last observed point of the curve to update.}
 
 \item{Joredered}{set of curves ordered by distance or depth.}
 }

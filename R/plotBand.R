@@ -6,6 +6,7 @@
 #' @param focal the name of the curve to envelope. In the article, the most recent curve.
 #' @param Joredered set of curves ordered by distance or depth.
 #' @param kcurves number of curves to build the band.
+#' @param cut last observed point of the curve to update.
 #'
 #' @return a list containing the selected curves.
 #'
@@ -15,9 +16,7 @@
 #' @importFrom rainbow fts
 #'
 #' @export
-plotBand <- function(data, focal, Jordered, kcurves){
-  cut <- sum(!is.na(data$y[,focal]))
-
+plotBand <- function(data, focal, Jordered, kcurves, cut){
   dataShort<- rainbow::fts(data$x[1:cut], data$y[1:cut,], xname=data$xname, yname = data$yname) # , cex.axis= 0.5, cex.lab=0.5)
 
   #Rule, take de min of normJordered and k

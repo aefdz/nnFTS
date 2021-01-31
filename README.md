@@ -48,7 +48,7 @@ kcurves <- 10 # number of curves of the envelope involved in the band
 dataPartially <- rainbow::fds(sinedata$x[1:25], sinedata$y[1:25,])
 results <- envelope(dataPartially, focal, dist, plot = FALSE)
 
-pl <- plotBand(sinedata, focal, results$Jordered, kcurves)
+pl <- plotBand(sinedata, focal, results$Jordered, kcurves, cut = 25)
 ```
 
 ![](README_files/figure-markdown_github/unnamed-chunk-2-1.png)

@@ -32,10 +32,12 @@ resultsBand #Envelope
 
 ## Curve Extension
 ```{r, message = FALSE}
-tcut <- 25 # number of points observed of the partially observed function
 kcurves <- 10 # number of curves of the envelope involved in the band
 
-pl <- plotBand(sinedata, tcut, resultsBand$Jordered, kcurves, focal)
+dataPartially <- rainbow::fds(sinedata$x[1:25], sinedata$y[1:25,])
+results <- envelope(dataPartially, focal, dist, plot = FALSE)
+
+pl <- plotBand(sinedata, focal, results$Jordered, kcurves)
 ```
 
 ## To explore different values of cut and kcurves (only running in Rstudio)
@@ -43,7 +45,7 @@ pl <- plotBand(sinedata, tcut, resultsBand$Jordered, kcurves, focal)
 ```{r, eval = FALSE}
 manipulate(
   {
-  plotBand(sinedata, tcut, results$Jordered, kcurves, focal)
+  plotBand(sinedata, focal, results$Jordered, kcurves)
   },
   kcurves = slider(min = 1, max = length(results$Jordered), step = 1, ticks = TRUE),
   cut = slider(1, 99, initial = 50, step = 1)
@@ -56,7 +58,7 @@ manipulate(
 ```{r, eval = TRUE}
 data(electricityDemand)
 focal <- "saturday/29/12/2018"
-data <- fts(electricityDemand$x, electricityDemand$y[,1:1825])
+data <- rainbow::fts(electricityDemand$x, electricityDemand$y[,1:1825])
 point <- envelope.forecast(data, focal, h = 1, distance = "l2", typePoint = "expw", theta = 1)
 
 plot(data, col = "grey50")
@@ -82,7 +84,7 @@ abline(v = data$x[72])
 ```{r, eval = TRUE}
 data(electricityDemand)
 focal <- "saturday/29/12/2018"
-data <- fts(electricityDemand$x, electricityDemand$y[,1:1825])
+data <- rainbow::fts(electricityDemand$x, electricityDemand$y[,1:1825])
 point <- fknn.forecast(data, focal, k = 3, h = 1, distance = "l2", typePoint = "expw", theta = 1)
 
 plot(data, col = "grey50")

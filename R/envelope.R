@@ -67,6 +67,8 @@ envelope <- function(data, focal, distance, plot){
         Subsample<-c(Subsample, SubsampleIter)
         if(plot==TRUE){
           fdata<-reshape2::melt(data$y, id='x')
+          colnames(fdata) <- c("X1", "X2", "value")
+
           aux<-matrix(c(data$y[,SubsampleIter]), nrow=length(data$x))
           low<-  vector(mode="numeric", length=length(data$x))
           high<-  vector(mode="numeric", length=length(data$x))
@@ -179,7 +181,9 @@ plotBand <- function(data, cut, Jordered, kcurves, focal){
   bagId <- Jordered[!Jordered %in% focal][1:J];
 
   fdata<-reshape2::melt(data$y, id='x')
+  colnames(fdata) <- c("X1", "X2", "value")
   fdatashort<-reshape2::melt(dataShort$y, id='x')
+  colnames(fdatashort) <- c("X1", "X2", "value")
 
   #Now we compute the bag
   bag <- band(data,bagId); low<-bag[,1]; high<-bag[,2]

@@ -2,23 +2,28 @@
 % Please edit documentation in R/envelope.R
 \name{envelope}
 \alias{envelope}
-\title{envelope}
+\title{Envelope Algorithm}
 \usage{
-envelope(data, focal, dist = "l2", plot = TRUE)
+envelope(data, focal, distance, plot)
 }
 \arguments{
-\item{data}{Do you love cats? Defaults to TRUE.}
+\item{data}{a fts or fds object see R package rainbow or ftsa.}
 
-\item{focal}{Column name of the function to envelope.}
+\item{focal}{the name of the curve to envelope. In the article, the most recent curve.}
 
-\item{dist}{Distance between functions ("l2" or "supremum"). Defaults is L2 distance.}
+\item{distance}{a character string naming the distance. Available options are "supremum" and "l2".}
 
-\item{plot}{If plotting or not the iterations. Defaults to TRUE.}
+\item{plot}{if plotting the selected curves in the different iterations of the algorithm.}
+}
+\value{
+a list containing the selected curves.
 }
 \description{
-This function allows to get the envelopes.
+This function implement the algorithm to optain neighbourhoods as in the paper.
 }
 \examples{
-envelope()
+data(sinedata)
+focal <- '1'
+resultsBand <- envelope(sinedata, focal, distance = "l2", plot = FALSE)
+
 }
-\keyword{envelope}

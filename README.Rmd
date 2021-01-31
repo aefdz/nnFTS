@@ -1,5 +1,5 @@
 ---
-title: "Prediction bands for functional data based on depth measures"
+title: "On Projection Methods for Functional Time Series Forecasting"
 author: "Antonio Elías"
 date: "20/01/2020"
 output:
@@ -10,22 +10,23 @@ output:
 ```{r setup, include=FALSE, message = FALSE, warning = FALSE, fig.asp = 0.5, fig.align = 'center'}
 knitr::opts_chunk$set(echo = TRUE)
 
-devtools::install_github("aefdz/dbFDA", dep = FALSE)
-library(dbFDA)
+#devtools::install_github("aefdz/nnFTS", dep = FALSE)
+library("nnFTS")
 ```
 
 [![License](https://img.shields.io/badge/license-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-Depth-based prediction bands for functional data
+On Projection Methods for Functional Time Series Forecasting
 ===========
 
 ## Enveloping without prediction or forecasting
 ```{r, message = FALSE}
+data(sinedata)
 focal <- '1'
 dist <- 'l2' # dist<-'supremum'
 plotting <- TRUE 
 
-resultsBand <- banddpeeling(data, focal, dist, plotting)
+resultsBand <- envelope(sinedata, focal, dist, plotting)
 resultsBand #Envelope 
 ```
 
@@ -34,9 +35,9 @@ resultsBand #Envelope
 cut <- 25 # number of points observed of the partially observed function
 kcurves <- 10 # number of curves of the envelope involved in the band
 
-results <- extension(data, focal, cut, dist)
+results <- extension(sinedata, focal, cut, dist)
 
-pl <- plotBand(data, cut, results$Jordered, kcurves, focal)
+pl <- plotBand(sinedata, cut, results$Jordered, kcurves, focal)
 ```
 
 ## To explore different values of cut and kcurves (only running in Rstudio)
@@ -44,11 +45,63 @@ pl <- plotBand(data, cut, results$Jordered, kcurves, focal)
 ```{r, eval = FALSE}
 manipulate(
   {
-  plotBand(data, cut, results$Jordered, kcurves, focal)
+  plotBand(sinedata, cut, results$Jordered, kcurves, focal)
   },
   kcurves = slider(min = 1, max = length(results$Jordered), step = 1, ticks = TRUE),
   cut = slider(1, 99, initial = 50, step = 1)
 )
 ```
 
+## Spanish Electricity Demand Example
 
+### Envelope forecast
+```{r, eval = TRUE}
+data(electricityDemand)
+focal <- "saturday/29/12/2018"
+data <- fts(electricityDemand$x, electricityDemand$y[,1:1825])
+point <- envelope.forecast(data, focal, h = 1, distance = "l2", typePoint = "expw", theta = 1)
+
+plot(data, col = "grey50")
+lines(data$x, point, col = "red")
+lines(electricityDemand$x, electricityDemand$y[,"sunday/30/12/2018"], col = "blue")
+```
+
+```{r, eval = TRUE}
+data(electricityDemand)
+# DU half day
+focal <- "monday/31/12/2018"
+data <- electricityDemand
+data$y[72:144, focal] <- NA
+point <- envelope.forecast(data, focal, h = 1, distance = "l2", typePoint = "expw", theta = 1)
+
+plot(data, col = "grey50")
+lines(data$x, point, col = "red")
+lines(data$x, electricityDemand$y[,"monday/31/12/2018"], col = "blue")
+abline(v = data$x[72])
+```
+
+### Functional kNearest neighbour forecast
+```{r, eval = TRUE}
+data(electricityDemand)
+focal <- "saturday/29/12/2018"
+data <- fts(electricityDemand$x, electricityDemand$y[,1:1825])
+point <- fknn.forecast(data, focal, k = 3, h = 1, distance = "l2", typePoint = "expw", theta = 1)
+
+plot(data, col = "grey50")
+lines(data$x, point, col = "red")
+lines(electricityDemand$x, electricityDemand$y[,"sunday/30/12/2018"], col = "blue")
+```
+
+```{r, eval = TRUE}
+data(electricityDemand)
+# DU half day
+focal <- "monday/31/12/2018"
+data <- electricityDemand
+data$y[72:144, focal] <- NA
+point <- fknn.forecast(data, focal, k = 3, h = 1, distance = "l2", typePoint = "expw", theta = 1)
+
+plot(data, col = "grey50")
+lines(data$x, point, col = "red")
+lines(data$x, electricityDemand$y[,"monday/31/12/2018"], col = "blue")
+abline(v = data$x[72])
+```

@@ -20,7 +20,7 @@
 #' resultsBand <- envelope(sinedata, focal, distance = "l2", plot = FALSE)
 #'
 #' @export
-envelope <- function(data, focal, distance, plot){
+envelope <- function(data, focal, distance, plot, max_iter){
   P<-data$x[data$y[,focal]!=matrixStats::rowMaxs(data$y) & data$y[,focal]!=matrixStats::rowMins(data$y)]
   length_P<-length(P)
   if(length_P>0){
@@ -93,6 +93,7 @@ envelope <- function(data, focal, distance, plot){
 
       }
       if(length(candidates)==0){break}
+      if(!missing(max_iter)){if(max_iter == max(iter)-1){break}}
     }
   }else{Subsample=c('No Subsample')}
   if(distance=='supremum'){dist <- matrixStats::colMaxs(abs(matrix(data$y-data$y[,focal], ncol=length(I), nrow=length(data$x)))); names(dist)<-colnames(data$y)}

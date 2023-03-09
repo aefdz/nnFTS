@@ -29,7 +29,7 @@
 #' @importFrom rainbow fts
 #'
 #' @export
-envelope.forecast <- function(data, focal, h, distance, typePoint, theta = 1){
+envelope.forecast <- function(data, focal, h, distance, typePoint, theta = 1, max_iter){
   if(anyNA(data$y[,focal])){ #DU
     tcut <- sum(!is.na(data$y[,focal]))
     results <- envelope.DU(data, focal, tcut, distance)
@@ -49,7 +49,7 @@ envelope.forecast <- function(data, focal, h, distance, typePoint, theta = 1){
     pointPrediction <- t(as.matrix(w[selected]))%*%t(data$y[,envelopeAhead])
 
   }else{
-    results <- envelope(data, focal, distance = distance, plot = FALSE)
+    results <- envelope(data, focal, distance = distance, plot = FALSE, ...)
     selected <- results$Jordered[!results$Jordered %in% focal]
 
     if(distance=='supremum'){

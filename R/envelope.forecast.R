@@ -49,7 +49,7 @@ envelope.forecast <- function(data, focal, h, distance, typePoint, theta = 1, ma
     pointPrediction <- t(as.matrix(w[selected]))%*%t(data$y[,envelopeAhead])
 
   }else{
-    results <- envelope(data, focal, distance = distance, plot = FALSE, ...)
+    results <- envelope(data, focal, distance = distance, plot = FALSE, max_iter)
     selected <- results$Jordered[!results$Jordered %in% focal]
 
     if(distance=='supremum'){

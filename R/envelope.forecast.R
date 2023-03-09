@@ -111,6 +111,14 @@ wDistance<-function(distancesToFocal, theta = 1, typePoint){
     w<- expDistances/sum(expDistances)
     names(w)<-names(distancesToFocal)
   }
+  if(any(distancesToFocal == 0)){
+
+    w <- (1/distancesToFocal)/sum(1/distancesToFocal)
+    w[distancesToFocal == 0] <- 1
+    w[distancesToFocal != 0] <- 0
+
+    names(w) <- names(distancesToFocal)
+  }
   return(w)
 }
 

@@ -36,7 +36,7 @@ fknn.forecast <- function(data, focal, k, h, distance, typePoint, theta = 1){
   if(anyNA(data$y[,focal])){ #DU
     tcut <- sum(!is.na(data$y[,focal]))
 
-    selected <- fknn.distance(data, focal, distance)[2:c(1+k)]
+    selected <- fknn.distance(data, focal, distance)[1:k]
     envelopeAhead <- names(selected)
 
     w <- wDistance(selected, theta = theta, typePoint = typePoint)
@@ -44,7 +44,7 @@ fknn.forecast <- function(data, focal, k, h, distance, typePoint, theta = 1){
     pointPrediction <- t(as.matrix(w))%*%t(data$y[,envelopeAhead])
 
   }else{
-    selected <- fknn.distance(data, focal, distance)[2:c(1+k)]
+    selected <- fknn.distance(data, focal, distance)[1:k]
     envelopeAhead <- neighbours_H_Ahead(data, names(selected), h = h)
 
     w <- wDistance(selected, theta = theta, typePoint = typePoint)
@@ -60,10 +60,10 @@ fknn.distance <- function(data, focal, distance){
 
     if(distance=='supremum'){
       dist <- matrixStats::colMaxs(abs(matrix(data$y[1:tcut,]-data$y[1:tcut,focal],
-                                            ncol = ncol(data$y),
-                                            nrow = length(1:tcut))))
+                                              ncol = ncol(data$y),
+                                              nrow = length(1:tcut))))
       names(dist)<- colnames(data$y)
-      }
+    }
     if(distance=='l2'){
       dist <- colSums((data$y[1:tcut,]-data$y[1:tcut,focal])^2)
       names(dist)<-colnames(data$y)
@@ -81,5 +81,6 @@ fknn.distance <- function(data, focal, distance){
     }
   }
 
+  dist <- dist[-which(names(dist) == focal)]
   return(sort(dist))
 }
